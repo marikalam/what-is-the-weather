@@ -1,10 +1,12 @@
-function createHTML(cityName, tempValue){
+function createHTML(cityName, tempValue, humidity){
 
 	var htmlString = '<div class="setBorder">' +
 						'<div class="weatherCity">' + cityName + '</div>' +
 						'<div class="weatherData">' + tempValue + '</div>' +
+						'<div class="humidityData">' + humidity + '</div>' +
+
 					'</div>';
-	$('#weatherResults').prepend(htmlString);
+	$('#weatherResults').append(htmlString);
 }
 
 var getWeather = function(city){
@@ -19,13 +21,19 @@ var getWeather = function(city){
 		success: function(data){
 			var theCity = data.name;
 			var theTemp = Math.round(data.main.temp);
-			createHTML(theCity, theTemp+'&#8457;');
+			var theHumidity = Math.round(data.main.humidity);
+			console.log("HI I AM HERE", theHumidity);
+			createHTML(theCity, theTemp+'&#8457;','Humidity: '+theHumidity);
+
 		}
 	});
 };
 
 $(document).ready(function(){
-	getWeather("Sacramento");
 	getWeather("Fresno");
 	getWeather("Honolulu");
+	getWeather("Sunnyvale");
+	getWeather("Los Angeles");
+	getWeather("Sacramento");
+
 });
